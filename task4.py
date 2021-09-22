@@ -1,27 +1,22 @@
-def countMaxWeigth(weigth, values, capacity):
+def count_max_weigth(weigth, values, capacity):
     """Builds a matrix of possible sets of backpacks and returns the most profitable"""
-    arrayOfBag = [[0] * (capacity + 1) for _ in range(len(weigth) + 1)]
-    for i in range(len(arrayOfBag)):
-        for j in range(len(arrayOfBag[i])):
-            arrayOfBag[i][j] = 0
-    for i in range(len(arrayOfBag)):
-        for j in range(len(arrayOfBag[i])):
-            if j == 0 or i == 0:
-                arrayOfBag[i][j] = 0
+
+
+    matrix_of_bag = [[0 for _ in range(capacity + 1)] for _ in range(len(weigth) + 1)]
+    for i in range(len(matrix_of_bag)):
+        for j in range(len(matrix_of_bag[i])):
+            if not j or not i:
+                matrix_of_bag[i][j] = 0
             else:
                 if weigth[i - 1] > j:
-                    arrayOfBag[i][j] = arrayOfBag[i - 1][j]
+                    matrix_of_bag[i][j] = matrix_of_bag[i - 1][j]
                 else:
-                    lastOfPrevRow = arrayOfBag[i - 1][j]
-                    oneOfTheMax = values[i - 1] + arrayOfBag[i - 1][j - weigth[i - 1]]
-                    arrayOfBag[i][j] = max(lastOfPrevRow, oneOfTheMax)
-    for i in range(len(arrayOfBag)):
-        for j in range(len(arrayOfBag[i])):
-            print('{:5}'.format(arrayOfBag[i][j]), end = ' ')
-        print()
-    return arrayOfBag[len(weigth)][capacity]
+                    last_of_prev_row = matrix_of_bag[i - 1][j]
+                    one_of_the_max = values[i - 1] + matrix_of_bag[i - 1][j - weigth[i - 1]]
+                    matrix_of_bag[i][j] = max(last_of_prev_row, one_of_the_max)
+    return matrix_of_bag[len(weigth)][capacity]
 
 
-weigth = [2, 5, 3]
-values = [100, 250, 300]
-print(countMaxWeigth(weigth, values, 5))
+weigth = [29, 10, 10, 10]
+values = [29, 10, 10, 10]
+print(count_max_weigth(weigth, values, 30))

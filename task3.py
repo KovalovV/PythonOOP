@@ -3,14 +3,14 @@ import sys
 
 singc = '+-*/'
 
-def stringParse(inputString):
+def string_parse(input_string):
     """Returns a list of elements of a string that has been broken down into numbers and mathematical operands"""
 
     array = []
     number = ''
-    if len(inputString) and inputString[0] not in singc:
-        inputString = '+' + inputString
-    for i in inputString:
+    if len(input_string) and input_string[0] not in singc:
+        input_string = '+' + input_string
+    for i in input_string:
         if i in singc:
             array.append(number)
             array.append(i)
@@ -18,21 +18,22 @@ def stringParse(inputString):
         else:
             number += i
     array.append(number)
-    return list(filter(lambda x: x, array))
+    array = list(filter(lambda x: x, array))
+    return array
 
 
-def calculate(parsedString, index = 0):
+def calculate(parsed_string, index = 0):
     """Calculates a mathematical expression if it is correct and returns a tuple of the form (True / False, The result value / None)"""
 
-    if index >= len(parsedString):
-        return True, eval(''.join(parsedString))
+    if index >= len(parsed_string):
+        return True, eval(''.join(parsed_string))
     else:
-        if parsedString[index] in singc:
-            if parsedString[index + 1].isdigit():
-                return calculate(parsedString, index + 2)
+        if parsed_string[index] in singc:
+            if index + 1 != len(parsed_string) and parsed_string[index + 1] and parsed_string[index + 1].isdigit():
+                return calculate(parsed_string, index + 2)
             else:
                 return False, None
 
        
-parsedString = stringParse(''.join(sys.argv[1:]))
-print(calculate(parsedString)) if parsedString else print((False, None))
+parsed_string = string_parse(''.join(sys.argv[1:]))
+print(calculate(parsed_string)) if parsed_string else print((False, None))
