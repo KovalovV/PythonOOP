@@ -25,12 +25,6 @@ class Rational:
         # return the tuple
         return numerator//n_s_d, denominator//n_s_d
 
-# def check_input(rational):
-#     try:
-#         return rational
-#     except:
-#         return None
-
 rational = Rational(8, -4)
 print(rational.str1())
 print(rational.str2())
