@@ -9,6 +9,8 @@ class Rational:
         try:
             self.__numerator = self.nsd(numerator, denominator)[0]
             self.__denominator = self.nsd(numerator, denominator)[1]
+            if self.__denominator == 0:
+                raise Exception('Division by zero')
         except:
             notification()
 
@@ -25,7 +27,7 @@ class Rational:
         # return the tuple
         return numerator//n_s_d, denominator//n_s_d
 
-rational = Rational(8, -4)
+rational = Rational(0, 1)
 print(rational.str1())
 print(rational.str2())
 
