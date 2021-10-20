@@ -4,7 +4,7 @@ from math import gcd
 class Rational:
     def __init__(self, numerator = 1, denominator = 2):
         if not (isinstance(numerator, int) or isinstance(denominator, int)):
-            raise TypeError('TypeError')
+            raise TypeError('Invalid input data type')
         if denominator == 0:
             raise Exception('Division by zero')
         self.__numerator = self.nsd(numerator, denominator)[0]
@@ -12,28 +12,28 @@ class Rational:
 
     def __add__(self, operand):
         if not isinstance(operand, Rational):
-            raise TypeError("Error")
+            raise TypeError('Invalid input data type')
         numerator = self.__numerator * operand.__denominator + self.__denominator * operand.__numerator
         denominator = self.__denominator * operand.__denominator
         return Rational(numerator, denominator)
 
     def __sub__(self, operand):
         if not isinstance(operand, Rational):
-            raise TypeError("Error")
+            raise TypeError('Invalid input data type')
         numerator = self.__numerator * operand.__denominator - self.__denominator * operand.__numerator
         denominator = self.__denominator * operand.__denominator
         return Rational(numerator, denominator)
 
     def __mul__(self, operand):
         if not isinstance(operand, Rational):
-            raise TypeError("Error")
+            raise TypeError('Invalid input data type')
         denominator = self.__denominator * operand.__denominator
         numerator = self.__numerator * operand.__numerator
         return Rational(numerator, denominator)
 
     def __truediv__(self, operand):
         if not isinstance(operand, Rational):
-            raise TypeError("Error")
+            raise TypeError('Invalid input data type')
         denominator = self.__denominator * operand.__numerator
         numerator = self.__numerator * operand.__denominator
         return Rational(numerator, denominator)
@@ -52,21 +52,17 @@ class Rational:
         return numerator//n_s_d, denominator//n_s_d
 
 def main():
-    try:
-        rational1 = Rational(2, 4)
-        print(rational1.str1())
-        print(rational1.str2())
+    rational1 = Rational(2, 4)
+    print(rational1.str1())
+    print(rational1.str2())
 
-        rational2 = Rational(5, 4)
-        print(rational2.str1())
-        print(rational2.str2())
+    rational2 = Rational(5, 20)
+    print(rational2.str1())
+    print(rational2.str2())
 
-        print('addition: ', (rational1 + rational2).str1(), ' ', (rational1 + rational2).str2())
-        print('subtraction: ', (rational1 - rational2).str1(), ' ', (rational1 - rational2).str2())
-        print('multiplication: ', (rational1 * rational2).str1(), ' ', (rational1 * rational2).str2())
-        print('division: ', (rational1 / rational2).str1(), ' ', (rational1 / rational2).str2())
-        return 'All is good!'
-    except:
-        return 'Something went wrong!'
+    print('addition: ', (rational1 + rational2).str1(), ' ', (rational1 + rational2).str2())
+    print('subtraction: ', (rational1 - rational2).str1(), ' ', (rational1 - rational2).str2())
+    print('multiplication: ', (rational1 * rational2).str1(), ' ', (rational1 * rational2).str2())
+    print('division: ', (rational1 / rational2).str1(), ' ', (rational1 / rational2).str2())
 
-print(main())
+main()

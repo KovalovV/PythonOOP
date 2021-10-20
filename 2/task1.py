@@ -3,6 +3,8 @@ import re
 
 class Rectangle:
     def __init__(self, length = 1, width = 1):
+        if not (isinstance(length, (int, float)) or isinstance(width, (int, float))):
+            raise TypeError('Invalid input data type')
         self.__length = length  
         self.__width = width
         self.__area = 1
@@ -12,13 +14,17 @@ class Rectangle:
         return f'area = {self.__area}\nperimetr = {self.__perimetr}'
 
     def set_width(self, width):
-        if not (0 < width < 20 or isinstance(width, (int, float))):
-            raise Exception('Error')
+        if not 0 < width < 20:
+            raise ValueError('Incorrect data input values')
+        if not isinstance(width, (int, float)):
+            raise TypeError('Invalid input data type')
         self.__width = width
 
     def set_length(self, length):
-        if not (0 < length < 20 or isinstance(length, (int, float))):
-            raise Exception('Error')
+        if not 0 < length < 20:
+            raise ValueError('Incorrect data input values')
+        if not isinstance(length, (int, float)):
+            raise TypeError('Invalid input data type')
         self.__length = length
 
     def get_width(self): 
@@ -36,15 +42,11 @@ class Rectangle:
         return self.__perimetr
 
 def main():
-    try:
-        rectangle = Rectangle()
-        rectangle.set_length(5.5)
-        rectangle.set_width(2)
-        rectangle.area()
-        rectangle.perimeter()
-        print(rectangle)
-        return 'All is good!'
-    except:
-        return 'Something went wrong!'
+    rectangle = Rectangle()
+    rectangle.set_length(5.5)
+    rectangle.set_width(2)
+    rectangle.area()
+    rectangle.perimeter()
+    print(rectangle)
 
-print(main())
+main()
