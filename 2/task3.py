@@ -10,12 +10,14 @@ class Product:
         self.__width = width
 
     def __str__(self):
-        return f'Name of product: {self.__description}\nPrice of product: {self.__price}\n'
+        return f'Name of product: {self.description}\nPrice of product: {self.price}\n'
 
-    def get_price(self):
+    @property
+    def price(self):
         return self.__price
 
-    def get_description(self):
+    @property
+    def description(self):
         return self.__description
 
 class Customer:
@@ -39,13 +41,13 @@ class Order:
         self.__products = products
         
     def __str__(self):
-        descriotion_of_products = '\n'.join([f'Name of product: {product.get_description()}\nPrice of product: {product.get_price()}$' for product in self.__products])
+        descriotion_of_products = '\n'.join([f'Name of product: {product.description}\nPrice of product: {product.price}$' for product in self.__products])
         return f'Оrder description:\nPrice of order: {self.__order_price}$\n{self.__customer}\n{descriotion_of_products}\n-------------------\n'
 
     def count_price(self):
         self.__order_price = 0
         for product in self.__products:
-            self.__order_price += product.get_price()
+            self.__order_price += product.price
         return self.__order_price
 
 

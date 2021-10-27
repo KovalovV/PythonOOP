@@ -1,4 +1,8 @@
 class Node:
+    """
+    Class Node. Describes the node of a binary tree.
+    """
+
     def __init__(self, id, price):
         if not isinstance(id, int) or not isinstance(price, (int, float)):
             raise TypeError('Invalid input data type')
@@ -10,6 +14,11 @@ class Node:
         self.price = price
 
     def insert(self, id, price):
+        """
+        Method insert(price).
+        Gets the ID of the product and its quantity
+        """
+
         if self.id:
             if id < self.id:
                 if not self.left:
@@ -25,6 +34,11 @@ class Node:
             self.id = id
 
     def find_id(self, key):
+        """
+        Method find_id(key).
+        Receives the product key and returns its price
+        """
+
         if key < self.id:
             if not self.left:
                 raise Exception('Not find such product')
@@ -37,7 +51,11 @@ class Node:
             return self.price
 
 def cout_price(root, product_id, amount):
-    return f'Price: ${root.find_id(product_id) * amount}'
+    """
+    Method cout_price(product_id, amount).
+    Receives the product key, product quantity and returns the price of the entire order
+    """
+    return root.find_id(product_id) * amount
 
 def main():
     try:
@@ -47,7 +65,7 @@ def main():
         root.insert(3, 100)
         root.insert(13, 110)
         product_id, amount = list(map(int, input('Put the product ID and the amount here: ').split()))
-        print(cout_price(root, product_id, amount))
+        print(f'Price: {cout_price(root, product_id, amount)}')
         return ' #All is good!'
     except Exception:
         return ' #Not find such product'

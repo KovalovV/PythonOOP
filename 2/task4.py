@@ -13,8 +13,7 @@ class Text:
     def reading(self):
         self.__text = ''
         with open(self.__path, "r") as file:
-            for line in file:
-                self.__text += line
+            self.__text = file.read()
 
     def read__symbols(self):
         if not len(self.__text):
