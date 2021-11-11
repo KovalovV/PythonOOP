@@ -2,43 +2,43 @@
     "0": {
         "name": "Katyusha",
         "ingradients": ["nutella", "chocolate", "bananas", "strawberries", "nuts", "marshmallows"],
-        "diametr": "35",
-        "price": "30"
+        "diametr": 35,
+        "price": 30
     },
     "1": {
         "name": "Pepperoni",
         "ingradients": ["mozzarella", "pepperoni", "barbecue sauce"],
-        "diametr": "35",
-        "price": "17"
+        "diametr": 35,
+        "price": 17
     },
     "2": {
         "name": "Manhattan",
         "ingradients": ["mushrooms", "mozzarella", "pepperoni", "alfred sauce"],
-        "diametr": "35",
-        "price": "19"
+        "diametr": 35,
+        "price": 19
     },
     "3": {
         "name": "Texas",
         "ingradients": ["corn", "onions", "mushrooms", "mozzarella", "barbecue sauce"],
-        "diametr": "35",
-        "price": "20"
+        "diametr": 35,
+        "price": 20
     },
     "4": {
         "name": "Barbecue",
         "ingradients": ["chicken", "onions", "bacon", "mushrooms", "mozzarella", "barbecue sauce"],
-        "diametr": "35",
-        "price": "27"
+        "diametr": 35,
+        "price": 27
     },
     "5": {
         "name": "Carbonara",
         "ingradients": ["ham", "onions", "bacon", "mushrooms", "mozzarella", "alfred sauce"],
-        "diametr": "35",
-        "price": "25"
+        "diametr": 35,
+        "price": 25
     },
     "6": {
         "name": "Bavarian",
         "ingradients": ["bavarian sausages", "parmesan", "mozzarella", "barbecue sauce"],
-        "diametr": "35",
-        "price": "20"
+        "diametr": 35,
+        "price": 20
     }
 }

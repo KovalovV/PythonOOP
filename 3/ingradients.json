@@ -1,70 +1,70 @@
 {
     "mozzarella": {
-        "price": "3",
+        "price": 3,
         "weight": "0.1"
     },
     "tomato": {
-        "price": "3",
+        "price": 3,
         "weight": "0.1"
     },
     "pepperoni": {
-        "price": "3",
+        "price": 3,
         "weight": "0.1"
     },
     "barbecue sauce": {
-        "price": "2",
+        "price": 2,
         "weight": "0.15"
     },
     "mushrooms": {
-        "price": "2",
+        "price": 2,
         "weight": "0.1"
     },
     "alfred sauce": {
-        "price": "2",
+        "price": 2,
         "weight": "0.15"
     },
     "corn": {
-        "price": "4",
+        "price": 4,
         "weight": "0.1"
     },
     "onions": {
-        "price": "1",
+        "price": 1,
         "weight": "0.1"
     },
     "chicken": {
-        "price": "5",
+        "price": 5,
         "weight": "0.2"
     },
     "ham": {
-        "price": "3",
+        "price": 3,
         "weight": "0.1"
     },
     "bavarian sausages": {
-        "price": "5",
+        "price": 5,
         "weight": "0.2"
     },
     "nutella": {
-        "price": "2.5",
+        "price": 2.5,
         "weight": "0.125"
     },
     "chocolate": {
-        "price": "1.5",
+        "price": 1.5,
         "weight": "0.1"
     },
     "bananas": {
-        "price": "1.5",
+        "price": 1.5,
         "weight": "0.2"
     },
     "strawberries": {
-        "price": "3",
+        "price": 3,
         "weight": "0.15"
     },
     "nuts": {
-        "price": "3",
+        "price": 3,
         "weight": "0.15"
     },
     "marshmallows": {
-        "price": "2",
+        "price": 2,
         "weight": "0.2"
     }
 }
