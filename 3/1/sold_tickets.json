@@ -1,0 +1,26 @@
+{
+    "1": {
+        "name_event": "Python Developer CyberBionic Systematics",
+        "date": "25.12.2021",
+        "type": "regular",
+        "price": 248
+    },
+    "2": {
+        "name_event": "Blockchain & Bitcoin Conference Kyiv 2021",
+        "date": "26.11.2021",
+        "type": "late",
+        "price": 153
+    },
+    "3": {
+        "name_event": "Salesforce Meetup",
+        "date": "15.05.2022",
+        "type": "student",
+        "price": 198
+    },
+    "4": {
+        "name_event": "Salesforce Meetup",
+        "date": "15.05.2022",
+        "type": "regular",
+        "price": 198
+    }
+}

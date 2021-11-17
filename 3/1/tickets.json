@@ -1,0 +1,26 @@
+{
+    "Blockchain & Bitcoin Conference Kyiv 2021": {
+        "date": "26.11.2021",
+        "price": 153,
+        "regular": 50,
+        "advance": 25,
+        "late": 57,
+        "student": 838
+    },
+    "Python Developer CyberBionic Systematics": {
+        "date": "25.12.2021",
+        "price": 248,
+        "regular": 3,
+        "advance": 25,
+        "late": 30,
+        "student": 12
+    },
+    "Salesforce Meetup": {
+        "date": "15.05.2022",
+        "price": 198,
+        "regular": 16,
+        "advance": 50,
+        "late": 1,
+        "student": 2
+    }
+}
