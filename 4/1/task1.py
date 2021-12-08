@@ -9,8 +9,8 @@ class Rational:
 
 
     def __init__(self, numerator = 1, denominator = 2):
-        self.__numerator = self.nsd(numerator, denominator)[0]
-        self.__denominator = self.nsd(numerator, denominator)[1]
+        self.numerator = self.nsd(numerator, denominator)[0]
+        self.denominator = self.nsd(numerator, denominator)[1]
 
     @property
     def numerator(self):
@@ -36,10 +36,56 @@ class Rational:
 
         self.__denominator = denominator
 
-    def __str__(self) -> str:
+    def nsd(self, numerator, denominator):
+        n_s_d = gcd(numerator, denominator)
+        return numerator//n_s_d, denominator//n_s_d
+
+    def __str__(self):
         return f'{self.numerator}/{self.denominator}'
 
-    # binary operations
+        # binary operations
+    def __iadd__(self, other):
+        """
+        Binary operator overload +=
+        """
+
+        if not isinstance(other, (Rational, int)):
+            raise TypeError('Invalid input data type')
+
+        if isinstance(other, Rational):
+            numerator_denominator = self.nsd(self.numerator * other.denominator + self.denominator * other.numerator, self.denominator * other.denominator)
+            print(numerator_denominator)
+            self.numerator = numerator_denominator[0]
+            self.denominator = numerator_denominator[1]
+        else:
+            numerator_denominator = self.nsd(self.numerator + self.denominator * other, self.denominator)
+            print(numerator_denominator)
+            self.numerator = numerator_denominator[0]
+            self.denominator = numerator_denominator[1]
+
+        return self
+
+    def __isub__(self, other):
+        """
+        Binary operator overload -=
+        """
+
+        if not isinstance(other, (Rational, int)):
+            raise TypeError('Invalid input data type')
+
+        if isinstance(other, Rational):
+            numerator_denominator = self.nsd(self.numerator * other.denominator - self.denominator * other.numerator, self.denominator * other.denominator)
+            print(numerator_denominator)
+            self.numerator = numerator_denominator[0]
+            self.denominator = numerator_denominator[1]
+        else:
+            numerator_denominator = self.nsd(self.numerator - self.denominator * other, self.denominator)
+            print(numerator_denominator)
+            self.numerator = numerator_denominator[0]
+            self.denominator = numerator_denominator[1]
+
+        return self
+
     def __add__(self, other):
         """
         Binary operator overload +
@@ -143,10 +189,6 @@ class Rational:
 
     def num(self): 
         return self.numerator / self.denominator
-    
-    def nsd(self, numerator, denominator):
-        n_s_d = gcd(numerator, denominator)
-        return numerator//n_s_d, denominator//n_s_d
 
 def main():
     rational1 = Rational(1, 4)
@@ -161,6 +203,10 @@ def main():
     print(f'subtraction: {rational1 - rational2} {(rational1 - rational2).num()}')
     print(f'multiplication: {rational1 * rational2} {(rational1 * rational2).num()}')
     print(f'division: {rational1 / rational2} {(rational1 / rational2).num()}')
+    rational1 += rational2
+    print(f'iaddition: {rational1} {(rational1).num()}')
+    rational2 -= rational1
+    print(f'isubtraction: {rational2} {(rational2).num()}')
 
     print('\nwith integer:')
 
@@ -168,6 +214,11 @@ def main():
     print(f'subtraction: {rational1 - 5} {(rational1 - 5).num()}')
     print(f'multiplication: {rational1 * 5} {(rational1 * 5).num()}')
     print(f'division: {rational1 / 5} {(rational1 / 5).num()}')
+    rational1 += 5
+    print(f'iaddition: {rational1} {(rational1).num()}')
+    rational2 -= 5
+    print(f'isubtraction: {rational2} {(rational2).num()}')
+
 
     print('\nwith rational:')
 
