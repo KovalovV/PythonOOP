@@ -1,0 +1,18 @@
+{
+    "Python 2022 3.0": {
+        "type": "local",
+        "theme": ["Intridecu", "Loop", "Iterator"]
+    },
+    "DJango 2021": {
+        "type": "local",
+        "theme": ["Intridecu", "Arkitekche", "Base"]
+    },
+    "C++ 2022 13.0": {
+        "type": "offsite",
+        "theme": ["What is C++", "C++ top", "OOP in C++"]
+    },
+    "C 2021": {
+        "type": "offsite",
+        "theme": ["Templates in C", "Type of data", "Structure in C"]
+    }
+}
