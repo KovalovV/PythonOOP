@@ -41,9 +41,13 @@ class ITeacher(ABC):
         courses = ', '.join([f'{array_of_courses[i]}' for i in range(len(array_of_courses))])
         return f'Teacher:\n\t{self.name} {self.surname}\n\tCourses: {courses}'
 
+    def __iter__(self):
+        return CoursesIterator(self.courses)
+
     def str_check(self, input_string):
         if not isinstance(input_string, str):
             raise TypeError('Wrong field type, waiting for a string')
+
         if not len(input_string):
             raise ValueError('Empty field')
     
@@ -54,7 +58,8 @@ class ITeacher(ABC):
     @name.setter
     def name(self, name):
         self.str_check(name)
-        if Teacher.data_of_teachers.get(name):
+
+        if not Teacher.data_of_teachers.get(name):
             raise ValueError('There is no teacher with this name')
 
         self.__name = name
@@ -77,10 +82,31 @@ class ITeacher(ABC):
     def courses(self, courses):
         if not all(isinstance(course, str) for course in courses):
             raise TypeError('Wrong field type, waiting for a string')
+
         if not all(course for course in courses):
             raise ValueError('Empty field')
 
         self.__courses = courses
+
+class CoursesIterator:
+    """
+    Iterator for Courses in the class
+    """
+
+
+    def __init__(self, wrapped):
+        self.wrapped = wrapped
+        self.index = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index >= len(self.wrapped):
+            raise StopIteration()
+
+        self.index += 1
+        return self.wrapped[self.index - 1]
 
 class Teacher(ITeacher):
     """
@@ -106,15 +132,19 @@ class ICourse(ABC):
             data_of_courses = json.load(courses)
 
     @abstractmethod
-    def __init__(self, name, teacher):
+    def __init__(self, name, teachers):
         self.name = name
-        self.teacher = teacher
+        self.teachers = teachers
 
     def __str__(self):
         item_course = ICourse.data_of_courses[self.name]
         item_course_theme = item_course["theme"]
         theme = ', '.join([f'{item_course_theme[i]}' for i in range(len(item_course_theme))])
-        return f'Course: \n\t{self.name}\n\ttype: {item_course["type"]}\n\ttheme: {theme}'
+        teachers = ', '.join([f'\n\t{ self.teachers[i]}' for i in range(len(self.teachers))])
+        return f'Course: \n\t{self.name}\n\ttype: {item_course["type"]}\n\ttheme: {theme}\n\tteachers: {teachers}'
+
+    def __iter__(self):
+        return TeacherIterator(self.teachers)
 
     @property
     @abstractmethod
@@ -127,17 +157,38 @@ class ICourse(ABC):
         pass
 
     @property
-    def teacher(self):
-        return self.__teacher
+    def teachers(self):
+        return self.__teachers
 
-    @teacher.setter
-    def teacher(self, teacher):
-        if not isinstance(teacher, Teacher):
+    @teachers.setter
+    def teachers(self, teachers):
+        if not all(isinstance(teacher, Teacher) for teacher in teachers):
             raise TypeError('Wrong field type, waiting for a Teacher')
-        if not (self.name in teacher.courses):
+
+        if not (self.name in teacher.courses for teacher in teachers):
             raise KeyError('This teacher does not teach this course')
 
-        self.__teacher = teacher
+        self.__teachers = teachers
+
+class TeacherIterator:
+    """
+    Iterator for Teachers in the class
+    """
+
+
+    def __init__(self, wrapped):
+        self.wrapped = wrapped
+        self.index = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index >= len(self.wrapped):
+            raise StopIteration()
+
+        self.index += 1
+        return self.wrapped[self.index - 1]
 
 class ILocalCourse(ICourse):
     """
@@ -159,10 +210,13 @@ class ILocalCourse(ICourse):
     def name(self, name):
         if not isinstance(name, str):
             raise TypeError('Wrong field type, waiting for a string')
+
         if not len(name):
             raise ValueError('Empty field')
+
         if not ICourse.data_of_courses.get(name):
             raise ValueError('There is no course with this name')
+
         if not ICourse.data_of_courses.get(name)["type"] == "local":
             raise ValueError('This is not local course')
 
@@ -199,10 +253,13 @@ class IOffsiteCourse(ICourse):
     def name(self, name):
         if not isinstance(name, str):
             raise TypeError('Wrong field type, waiting for a string')
+
         if not len(name):
             raise ValueError('Empty field')
+
         if not ICourse.data_of_courses.get(name):
             raise ValueError('There is no course with this name')
+            
         if not ICourse.data_of_courses.get(name)["type"] == "offsite":
             raise ValueError('This is not offsite course')
 
@@ -246,30 +303,34 @@ class CourseFactory(ICourseFactory):
     """
 
 
-    # def __init__(self, creating_obg, arg1, arg2):
-    #     self.creating_obg = creating_obg
-    #     self.arg1 = arg1
-    #     self.arg2 = arg2
-
     def __str__(self):
         return f'Course Factory'
 
     def create_item(self, creating_obj, arg1, arg2):
-        if not isinstance(arg1, str) or not isinstance(arg2, (str, Teacher)):
+        if not isinstance(arg1, str) or not isinstance(arg2, (str, list)):
             raise TypeError('Wrong field type, waiting for a string or Teacher to second arg')
+
         if not CourseFactory._dict_item.get(creating_obj):
             raise ValueError('There is no course with this name')
+
         return ICourseFactory._dict_item[creating_obj](arg1, arg2)
 
+def main():
+    teacher_local = CourseFactory().create_item('teacher', 'Vitala', 'Kovalov')
+    print(teacher_local)
 
-teacher_local = CourseFactory().create_item('teacher', 'Vitala', 'Kovalov')
-print(teacher_local)
+    teacher_local1 = CourseFactory().create_item('teacher', 'Vlad', 'Minin')
+    print(teacher_local1)
 
-course_local = CourseFactory().create_item('local course', 'Python 2022 3.0', teacher_local)
-print(course_local)
+    course_local = CourseFactory().create_item('local course', 'Python 2022 3.0', [teacher_local, teacher_local1])
+    print(course_local)
 
-teacher_offsite = CourseFactory().create_item('teacher', 'Vadym', 'Shpuryk')
-print(teacher_offsite)
+    teacher_offsite = CourseFactory().create_item('teacher', 'Vadym', 'Shpuryk')
+    print(teacher_offsite)
 
-course_offsite = CourseFactory().create_item('offsite course', 'C++ 2022 13.0', teacher_offsite)
-print(course_offsite)
+    course_offsite = CourseFactory().create_item('offsite course', 'C++ 2022 13.0', [teacher_offsite])
+    print(course_offsite)
+
+
+if __name__ == "__main__":
+    main()
